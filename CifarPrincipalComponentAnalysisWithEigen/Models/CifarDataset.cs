@@ -1,5 +1,5 @@
 // #define CHECK_PCA
-#define USE_EIGEN
+// #define USE_EIGEN
 
 using Accord.Math;
 using Accord.Math.Decompositions;
@@ -519,7 +519,7 @@ namespace CifarPrincipalComponentAnalysis.Models
 
             EigenvalueDecomposition evd = new EigenvalueDecomposition(X_cov, false, true);
             
-            _vectorEiganvalues = evd.RealEigenvalues;
+            _vectorEigenvalues = evd.RealEigenvalues;
             _matrixEigenvectors = evd.Eigenvectors;
 
 #endif // USE_EIGEN
