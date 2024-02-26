@@ -1,5 +1,5 @@
 // #define CHECK_PCA
-// #define USE_EIGEN
+#define USE_EIGEN
 
 using Accord.Math;
 using Accord.Math.Decompositions;
