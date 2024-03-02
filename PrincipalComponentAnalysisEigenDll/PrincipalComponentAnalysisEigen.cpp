@@ -89,10 +89,10 @@ DLLEXPORT void solve_principal_component_analysis(double* m_array_input,
     cout << real_eigenvectors(columns - 1, 0) << ", ..., " << real_eigenvectors(columns - 1, columns - 1) << endl << endl;
 
     cout << "Check Result: P L P^t" << endl;
-    MatrixXd PtLP = real_eigenvectors * real_eigenvalues.asDiagonal() * real_eigenvectors.transpose();
-    cout << PtLP(0, 0) << ", ..., " << PtLP(0, columns - 1) << endl;
+    MatrixXd PLPt = real_eigenvectors * real_eigenvalues.asDiagonal() * real_eigenvectors.transpose();
+    cout << PLPt(0, 0) << ", ..., " << PLPt(0, columns - 1) << endl;
     cout << "..." << endl;    
-    cout << PtLP(columns - 1, 0) << ", ..., " << PtLP(columns - 1, columns - 1) << endl << endl;
+    cout << PLPt(columns - 1, 0) << ", ..., " << PLPt(columns - 1, columns - 1) << endl << endl;
 
     cout << "--- solve_principal_component_analysis (END) ---" << endl;
     cout << "--- C++ codes (END) ---" << endl;

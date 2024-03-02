@@ -558,7 +558,7 @@ namespace CifarPrincipalComponentAnalysis.Models
             double[,] PLPt = _matrixEigenvectors.Dot(matrixL).Dot(_matrixEigenvectors.Transpose());
             Console.WriteLine($"PLP^T: {PLPt[0, 0]}, ..., {PLPt[0, ImageDataSize - 1]}");
             Console.WriteLine("...");
-            Console.WriteLine($"PLP^T  {PLPt[ImageDataSize - 1, 0]}, ..., {PLPt[ImageDataSize - 1, ImageDataSize - 1]}");            
+            Console.WriteLine($"PLP^T: {PLPt[ImageDataSize - 1, 0]}, ..., {PLPt[ImageDataSize - 1, ImageDataSize - 1]}");            
             Console.WriteLine("");
 
             #endregion Console messages to check the PCA calculation results
