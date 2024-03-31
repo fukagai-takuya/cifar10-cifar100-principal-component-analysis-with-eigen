@@ -59,37 +59,33 @@ DLLEXPORT void solve_principal_component_analysis(double* m_array_input,
     cout << "..." << endl;    
     cout << m_cov(columns - 1, 0) << ", ..., " << m_cov(columns - 1, columns - 1) << endl << endl;
     
-    //
     // ---------------------------------------------------------------
-    // Calculate the Eigendecomposition of a covariance matrix
+    // Calculate Eigendecomposition of a covariance matrix
     // ---------------------------------------------------------------
-    //
     SelfAdjointEigenSolver<MatrixXd> esolver(m_cov);
-    VectorXcd eigenvalues = esolver.eigenvalues();
-    MatrixXcd eigenvectors = esolver.eigenvectors();
 
     // Map v_array_eigenvalues_out to VectorXd
-    Map<VectorXd> real_eigenvalues(v_array_eigenvalues_out, columns);
+    Map<VectorXd> eigenvalues(v_array_eigenvalues_out, columns);
     // Apply reverse() to make the order of eigenvalues decreasing order
-    real_eigenvalues = eigenvalues.reverse().real();
+    eigenvalues = esolver.eigenvalues().reverse().eval();
 
-    cout << "real_eigenvalues" << endl;
-    cout << real_eigenvalues(0) << ", ..., " << real_eigenvalues(columns - 1) << endl << endl;
+    cout << "eigenvalues" << endl;
+    cout << eigenvalues(0) << ", ..., " << eigenvalues(columns - 1) << endl << endl;
     
     // Map m_array_eigenvectors_out to MatrixXd
     // - Make memory array Row Major to map m_array_cov_out
-    Map<Matrix<double, Dynamic, Dynamic, RowMajor>> real_eigenvectors(m_array_eigenvectors_out, columns, columns);
+    Map<Matrix<double, Dynamic, Dynamic, RowMajor>> eigenvectors(m_array_eigenvectors_out, columns, columns);
 
     // Apply reverse() to eigenvectors because the order of eigenvalues are reversed
-    real_eigenvectors = eigenvectors.rowwise().reverse().real();
+    eigenvectors = esolver.eigenvectors().rowwise().reverse().eval();
 
-    cout << "real_eigenvectors" << endl;
-    cout << real_eigenvectors(0, 0) << ", ..., " << real_eigenvectors(0, columns - 1) << endl;
+    cout << "eigenvectors" << endl;
+    cout << eigenvectors(0, 0) << ", ..., " << eigenvectors(0, columns - 1) << endl;
     cout << "..." << endl;    
-    cout << real_eigenvectors(columns - 1, 0) << ", ..., " << real_eigenvectors(columns - 1, columns - 1) << endl << endl;
+    cout << eigenvectors(columns - 1, 0) << ", ..., " << eigenvectors(columns - 1, columns - 1) << endl << endl;
 
     cout << "Check Result: P L P^t" << endl;
-    MatrixXd PLPt = real_eigenvectors * real_eigenvalues.asDiagonal() * real_eigenvectors.transpose();
+    MatrixXd PLPt = eigenvectors * eigenvalues.asDiagonal() * eigenvectors.transpose();
     cout << PLPt(0, 0) << ", ..., " << PLPt(0, columns - 1) << endl;
     cout << "..." << endl;    
     cout << PLPt(columns - 1, 0) << ", ..., " << PLPt(columns - 1, columns - 1) << endl << endl;
